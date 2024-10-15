@@ -53,13 +53,17 @@
             <div class="icon_more_purchase">
                 <i class="material-icons">add</i>
             </div>
-            {foreach from=$productos item=products key=i}
-                {foreach from=$products item=producto}
-                    <div class="dbjointpurchase_product joint_product block_joint_{$i} active" data-bestproduct="{$producto.id_product}">
-                        {include file='module:dbjointpurchase/views/templates/hook/product_joint.tpl'}
-                    </div>
+            {if isset($productos) && $productos|@count > 0}
+                {foreach from=$productos item=products key=i}
+                    {foreach from=$products item=producto}
+                        <div class="dbjointpurchase_product joint_product block_joint_{$i} active" data-bestproduct="{$producto.id_product}">
+                            {include file='module:dbjointpurchase/views/templates/hook/product_joint.tpl' product=$producto}
+                        </div>
+                    {/foreach}
                 {/foreach}
-            {/foreach}
+            {else}
+                <div class="no_related_products">{l s='No hay productos relacionados disponibles.' mod='dbjointpurchase'}</div>
+            {/if}
         </div>
         <div class="dbjointpurchase_footer">
             {*<span class="super_oferta">{l s='¡Oferta!' mod='dbjointpurchase'}</span>*}
